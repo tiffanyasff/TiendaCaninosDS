@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import Contacto
+from .models import Usuario
 
-class ContactoSerializer(serializers.ModelSerializer):
+class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Contacto
+        model = Usuario
         fields = '__all__'  # Usa '__all__' para todos los campos, o especifica los campos que necesites

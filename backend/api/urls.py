@@ -1,6 +1,6 @@
 from django.urls import path
-from . import views
+from .views import *
 urlpatterns = [
-
-   path('api/crear-usuario/', views.crear_usuario, name='crear_usuario'),
+   path('', menu),
+   path('api/crear-usuario/', crear_usuario, name='crear_usuario'),
 ]
