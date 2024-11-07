@@ -1,11 +1,11 @@
 from django.db import models
 
-class Contacto(models.Model):
-    # Campos del modelo
+class Usuario(models.Model):
     nombre = models.CharField(max_length=100)
-    email = models.EmailField()
-    mensaje = models.TextField()
-    # Otros campos que necesites
+    correo = models.EmailField(unique=True)
+    password = models.CharField(max_length=100)
+    telefono = models.CharField(max_length=15, blank=True, null=True)
+    direccion = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.nombre

@@ -17,8 +17,18 @@ const Crear = () => {
   const { handleSubmit, reset, setValue, control } = useForm({
     defaultValues: defaultValues,
   });
-  const submission = (data) =>
-    console.log(data); /*PONER LA URL QUE ESTE EN DJANGO */
+  
+  const submission = async (data) => {
+    try {
+      const response = await AxiosInstance.post("http://localhost:8000/api/crear-usuario/", data);
+      console.log(response.data);
+      alert("Usuario creado exitosamente");
+      reset();  // Reiniciar el formulario después de enviar
+    } catch (error) {
+      console.error("Error al crear el usuario", error);
+      alert("Error al crear el usuario");
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(submission)}>
