@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from .models import Usuario
+from rest_framework.response import Response
+from .serializers import UsuarioSerializer 
 # Create your views here.
 
 def menu(request):
@@ -19,3 +21,11 @@ def crear_usuario(request):
         direccion=data.get('direccion', ''),
     )
     return JsonResponse({'message': 'Usuario creado exitosamente'})
+
+
+
+@api_view(['GET'])
+def obtener_usuarios(request):
+    usuarios = Usuario.objects.all()
+    serializer = UsuarioSerializer(usuarios, many=True)
+    return Response(serializer.data)
