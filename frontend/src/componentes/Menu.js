@@ -36,11 +36,6 @@ const Menu = () => {
         size: 150,
       },
       {
-        accessorKey: "password", //normal accessorKey
-        header: "Contraseña",
-        size: 200,
-      },
-      {
         accessorKey: "telefono", //normal accessorKey
         header: "Telefono",
         size: 200,
@@ -68,7 +63,7 @@ const Menu = () => {
               <IconButton
                 color="secondary"
                 component={Link}
-                to={`edit/${row.original.id}`}
+                to={`editar/${row.original.id}`}
               >
                 <EditIcon />
               </IconButton>
@@ -76,7 +71,7 @@ const Menu = () => {
               <IconButton
                 color="error"
                 component={Link}
-                to={`delete/${row.original.id}`}
+                to={`borrar/${row.original.id}`}
               >
                 <DeleteIcon />
               </IconButton>
