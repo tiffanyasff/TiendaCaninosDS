@@ -11,17 +11,25 @@ const Portada = () => {
   };
 
   return (
-    <div className="container">
-      <div className="image-container">
-        <div className="circle"></div>
-        <img src={perritoPortada} alt="Perrito Portada" className="pet-image" />
-      </div>
+    <div className="portada-container">
       <div className="content">
-        <h1>¡Bienvenido!</h1>
-        <p>Encuentra tu nuevo mejor amigo con nosotros.</p>
-        <button onClick={handleRegistro} className="btn">
-          Regístrate
-        </button>
+        <div className="text-content">
+          <h1>
+            En busca de un <br></br>
+            <span>Nuevo amigo?</span>
+          </h1>
+          <h3>Tienda caninos</h3>
+          <p>
+            Te ayudamos a conectar con tu próximo mejor amigo, contamos con los
+            mejores expertos para asesorarte en esta importante decisión.
+          </p>
+          <button onClick={handleRegistro} className="read-more">
+            Regístrate
+          </button>
+        </div>
+        <div className="image-container">
+          <img src={perritoPortada} alt="Dog with heart-shaped glasses" />
+        </div>
       </div>
     </div>
   );

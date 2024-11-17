@@ -156,7 +156,7 @@ const Registrarse = () => {
                 variant="outlined"
                 color="secondary"
                 fullWidth
-                onClick={() => navigate("/iniciousuario")}
+                onClick={() => navigate("/inicio")}
                 disabled={!allFieldsFilled}
               >
                 Continuar
