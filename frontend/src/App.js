@@ -1,29 +1,76 @@
-import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import React from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import Navbar from "./componentes/Navbar";
+import Portada from "./componentes/Portada";
 import Menu from "./componentes/Menu";
 import Crear from "./componentes/Crear";
 import Ver from "./componentes/Ver";
-import Navbar from "./componentes/Navbar";
 import Editar from "./componentes/Editar";
 import Borrar from "./componentes/Borrar";
+import Registrarse from "./componentes/Registrarse";
+import NavbarUsuario from "./componentes/NavbarUsuario";
+import Perfil from "./componentes/Perfil";
+import Inicio from "./componentes/Inicio";
+import LoginForm from "./componentes/LoginForm";
+import Estadisticas from "./componentes/Estadisticas";
+import Pedidos from "./componentes/Pedidos";
+import { AuthProvider } from "./AuthContext";
 
 function App() {
-  const myWidth = 220;
+  const myWidth = 180;
+  const location = useLocation();
+
+  // Define las rutas que requieren NavbarUsuario
+  const rutasUsuario = [
+    "/perfil",
+    "/inicio",
+    "/navbarusuario",
+    "/estadisticas",
+    "/pedidos",
+  ];
+  const rutasSinNavbar = ["/", "/registrarse", "/login"];
+
+  // Determina qué Navbar mostrar según la ruta actual
+  const isUsuarioNavbar = rutasUsuario.includes(location.pathname);
+  const isSinNavbar = rutasSinNavbar.includes(location.pathname);
+
   return (
-    <div className="App">
-      <Navbar
-        drawerWidth={myWidth}
-        content={
-          <Routes>
-            <Route path="" element={<Menu />} />
-            <Route path="/ver" element={<Ver />} />
-            <Route path="/crear" element={<Crear />} />
-            <Route path="/editar/:id" element={<Editar />} />
-            <Route path="/borrar/:id" element={<Borrar />} />
-          </Routes>
-        }
-      />
-    </div>
+    <AuthProvider>
+      <div className="App">
+        {/* Renderiza el Navbar adecuado */}
+        {!isSinNavbar &&
+          (isUsuarioNavbar ? (
+            <NavbarUsuario />
+          ) : (
+            <Navbar
+              drawerWidth={myWidth}
+              content={
+                <Routes>
+                  <Route path="/menu" element={<Menu />} />
+                  <Route path="/ver" element={<Ver />} />
+                  <Route path="/crear" element={<Crear />} />
+                  <Route path="menu/editar/:id" element={<Editar />} />
+                  <Route path="menu/borrar/:id" element={<Borrar />} />
+                </Routes>
+              }
+            />
+          ))}
+
+        {/* Configuración de rutas */}
+        <Routes>
+          {/* Rutas sin Navbar */}
+          <Route path="/" element={<Portada />} />
+          <Route path="/registrarse" element={<Registrarse />} />
+          <Route path="/login" element={<LoginForm />} />
+
+          {/* Rutas con NavbarUsuario */}
+          <Route path="/perfil" element={<Perfil />} />
+          <Route path="/inicio" element={<Inicio />} />
+          <Route path="/estadisticas" element={<Estadisticas />} />
+          <Route path="/pedidos" element={<Pedidos />} />
+        </Routes>
+      </div>
+    </AuthProvider>
   );
 }
 

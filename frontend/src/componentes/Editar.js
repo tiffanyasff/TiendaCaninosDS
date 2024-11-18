@@ -22,6 +22,7 @@ const Editar = () => {
         setValue("password", res.data.password);
         setValue("telefono", res.data.telefono);
         setValue("direccion", res.data.direccion);
+        setValue("username", res.data.username);
         setLoading(false);
       }
     );
@@ -49,8 +50,9 @@ const Editar = () => {
       password: data.password,
       telefono: data.telefono,
       direccion: data.direccion,
+      username: data.username,
     }).then((res) => {
-      navigate(`/`);
+      navigate(`/menu`);
     });
   };
 
@@ -126,6 +128,14 @@ const Editar = () => {
                 name={"telefono"}
                 control={control}
                 placeholder="Ingrese su telefono"
+                width={"30%"}
+              />
+
+              <MyTextField
+                label="Username"
+                name={"username"}
+                control={control}
+                placeholder="username"
                 width={"30%"}
               />
 
