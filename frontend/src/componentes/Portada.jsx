@@ -26,6 +26,9 @@ const Portada = () => {
           <button onClick={handleRegistro} className="read-more">
             Regístrate
           </button>
+          <button onClick={handleRegistro} className="read-more">
+            Login
+          </button>
         </div>
         <div className="image-container">
           <img src={perritoPortada} alt="Dog with heart-shaped glasses" />

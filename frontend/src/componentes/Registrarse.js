@@ -8,12 +8,13 @@ import {
   CardContent,
   CardHeader,
 } from "@mui/material";
-import { useForm, Controller, useWatch } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import AxiosInstance from "./Axios";
 
 const Registrarse = () => {
   const defaultValues = {
+    username: "",
     nombre: "",
     correo: "",
     password: "",
@@ -21,7 +22,7 @@ const Registrarse = () => {
     direccion: "",
   };
 
-  const { handleSubmit, reset, control, watch } = useForm({
+  const { handleSubmit, reset, control } = useForm({
     defaultValues: defaultValues,
   });
 
@@ -36,14 +37,12 @@ const Registrarse = () => {
       console.log(response.data);
       alert("Usuario creado exitosamente");
       reset(); // Reiniciar el formulario después de enviar
+      navigate("/inicio"); // Redirigir automáticamente
     } catch (error) {
       console.error("Error al crear el usuario", error);
       alert("Error al crear el usuario");
     }
   };
-
-  // Verificar si todos los campos están llenos
-  const allFieldsFilled = Object.values(watch()).every((field) => field !== "");
 
   return (
     <Box
@@ -53,7 +52,7 @@ const Registrarse = () => {
         alignItems: "center",
         minHeight: "100vh",
         backgroundColor: "#f5f5f5",
-        padding: 2,
+        padding: 3,
       }}
     >
       <Card sx={{ maxWidth: 500, width: "100%", boxShadow: 3 }}>
@@ -68,6 +67,20 @@ const Registrarse = () => {
         <CardContent>
           <form onSubmit={handleSubmit(submission)}>
             <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+              <Controller
+                name="username"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Username de usuario"
+                    variant="outlined"
+                    fullWidth
+                    placeholder="Ingresa tu username de usuario"
+                  />
+                )}
+              />
+
               <Controller
                 name="nombre"
                 control={control}
@@ -150,16 +163,6 @@ const Registrarse = () => {
                 fullWidth
               >
                 Registrar
-              </Button>
-
-              <Button
-                variant="outlined"
-                color="secondary"
-                fullWidth
-                onClick={() => navigate("/inicio")}
-                disabled={!allFieldsFilled}
-              >
-                Continuar
               </Button>
             </Box>
           </form>

@@ -105,6 +105,14 @@ const Crear = () => {
           />
 
           <MyTextField
+            label="Usename"
+            name={"username"}
+            control={control}
+            placeholder="Ingrese su username"
+            width={"30%"}
+          />
+
+          <MyTextField
             label="Direccion"
             name={"direccion"}
             control={control}

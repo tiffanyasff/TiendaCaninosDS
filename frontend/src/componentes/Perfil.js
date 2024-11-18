@@ -13,14 +13,23 @@ const Perfil = () => {
   const [loading, setLoading] = useState(true);
 
   const fetchUserData = () => {
-    AxiosInstance.get("http://localhost:8000/api/obtener_usuarios/1") // Cambiar "1" por el ID del usuario deseado
-      .then((res) => {
-        setUser(res.data);
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.error("No token found in localStorage");
+      return;
+    }
+
+    AxiosInstance.get("http://localhost:8000/api/obtener_usuario_logueado", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((response) => {
+        console.log(response.data); // Aquí deberías ver los datos del usuario
+        setUser(response.data); // Actualiza el estado con los datos del usuario
         setLoading(false);
       })
-      .catch((err) => {
-        console.error("Error al obtener los datos del usuario:", err);
-        setLoading(false);
+      .catch((error) => {
+        console.error("Error al obtener los datos del usuario:", error);
       });
   };
 
@@ -39,10 +48,13 @@ const Perfil = () => {
   // Función para eliminar el usuario desde Django
   const deleteUser = () => {
     if (window.confirm("¿Estás seguro de eliminar tu cuenta?")) {
-      AxiosInstance.delete("http://localhost:8000/api/eliminar_usuario/1") // Cambiar "1" por el ID del usuario deseado
+      AxiosInstance.delete(
+        `http://localhost:8000/api/borrar-usuario/${user.id}/`
+      ) // Comillas invertidas
         .then(() => {
           alert("Cuenta eliminada.");
-          // Aquí puedes añadir lógica para redirigir al usuario.
+          // Redirigir al usuario después de eliminar la cuenta
+          window.location.href = "/login"; // Cambia la ruta según tu lógica
         })
         .catch((err) => {
           console.error("Error al eliminar la cuenta:", err);
@@ -78,7 +90,7 @@ const Perfil = () => {
                   <input
                     type="text"
                     name="nombre"
-                    value={user.nombre}
+                    value={user.nombre || ""} // Si no existe el valor de 'nombre', se usa un string vacío
                     onChange={handleChange}
                   />
                 ) : (
