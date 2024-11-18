@@ -34,7 +34,10 @@ const Perfil = () => {
   };
 
   const saveUserData = () => {
-    AxiosInstance.put("http://localhost:8000/api/actualizar_usuario/1", user) // Cambiar "1" por el ID del usuario deseado
+    AxiosInstance.put(
+      `http://localhost:8000/api/editar-usuario/${user.id}/`,
+      user
+    )
       .then(() => {
         alert("Cambios guardados correctamente.");
         setEditable(false);

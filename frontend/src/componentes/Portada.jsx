@@ -10,6 +10,10 @@ const Portada = () => {
     navigate("/registrarse"); // Redirige a la ruta de registro
   };
 
+  const handleLogin = () => {
+    navigate("/login"); // Redirige a la ruta de registro
+  };
+
   return (
     <div className="portada-container">
       <div className="content">
@@ -26,7 +30,7 @@ const Portada = () => {
           <button onClick={handleRegistro} className="read-more">
             Regístrate
           </button>
-          <button onClick={handleRegistro} className="read-more">
+          <button onClick={handleLogin} className="read-more">
             Login
           </button>
         </div>

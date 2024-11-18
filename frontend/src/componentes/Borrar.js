@@ -31,7 +31,7 @@ const Borrar = () => {
     AxiosInstance.delete(
       `http://localhost:8000/api/borrar-usuario/${MyId}/`
     ).then((res) => {
-      navigate(`/`);
+      navigate(`/menu`);
     });
   };
 

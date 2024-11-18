@@ -52,7 +52,7 @@ const Editar = () => {
       direccion: data.direccion,
       username: data.username,
     }).then((res) => {
-      navigate(`/`);
+      navigate(`/menu`);
     });
   };
 
