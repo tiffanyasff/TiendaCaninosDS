@@ -64,6 +64,8 @@
 
 import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "./theme/theme";
 import Navbar from "./componentes/Navbar";
 import Portada from "./componentes/Portada";
 import Menu from "./componentes/Menu";
@@ -78,20 +80,24 @@ import Inicio from "./componentes/Inicio";
 import LoginForm from "./componentes/LoginForm";
 import { AuthProvider } from "./AuthContext";
 
+
 function App() {
   const myWidth = 220;
   const location = useLocation();
 
   return (
+
     <AuthProvider>
       <div className="App">
         {/* Condicional para mostrar o no el Navbar */}
         {location.pathname !== "/" &&
           location.pathname !== "/registrarse" &&
+
           location.pathname !== "/navbarusuario" &&
           location.pathname !== "/perfil" &&
           location.pathname !== "/inicio" &&
           location.pathname !== "/login" && (
+
             <Navbar
               drawerWidth={myWidth}
               content={
@@ -122,6 +128,7 @@ function App() {
                   <Route path="/perfil" element={<Perfil />} />
                   <Route path="/inicio" element={<Inicio />} />
                   <Route path="/login" element={<LoginForm />} />
+
                 </Routes>
               }
             />
