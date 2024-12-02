@@ -14,6 +14,9 @@ import Inicio from "./componentes/Inicio";
 import LoginForm from "./componentes/LoginForm";
 import Estadisticas from "./componentes/Estadisticas";
 import Pedidos from "./componentes/Pedidos";
+import RazasPequenas from "./componentes/RazasPequenas";
+import RazasMedianas from "./componentes/RazasMedianas";
+import RazasGrandes from "./componentes/RazasGrandes";
 import { AuthProvider } from "./AuthContext";
 
 function App() {
@@ -27,6 +30,9 @@ function App() {
     "/navbarusuario",
     "/estadisticas",
     "/pedidos",
+    "/razaspequenas",
+    "/razasmedianas",
+    "/razasgrandes",
   ];
   const rutasSinNavbar = ["/", "/registrarse", "/login"];
 
@@ -68,6 +74,9 @@ function App() {
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/estadisticas" element={<Estadisticas />} />
           <Route path="/pedidos" element={<Pedidos />} />
+          <Route path="/razaspequenas" element={<RazasPequenas />} />
+          <Route path="/razasmedianas" element={<RazasMedianas />} />
+          <Route path="/razasgrandes" element={<RazasGrandes />} />
         </Routes>
       </div>
     </AuthProvider>
