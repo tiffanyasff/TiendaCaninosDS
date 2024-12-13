@@ -14,25 +14,25 @@ import Inicio from "./componentes/Inicio";
 import LoginForm from "./componentes/LoginForm";
 import Estadisticas from "./componentes/Estadisticas";
 import Pedidos from "./componentes/Pedidos";
-import RazasPequenas from "./componentes/RazasPequenas";
-import RazasMedianas from "./componentes/RazasMedianas";
-import RazasGrandes from "./componentes/RazasGrandes";
 import { AuthProvider } from "./AuthContext";
+import { useState } from "react";
 
 function App() {
   const myWidth = 180;
   const location = useLocation();
+  const [allProducts, setAllProducts] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [countProducts, setCountProducts] = useState(0);
 
   // Define las rutas que requieren NavbarUsuario
   const rutasUsuario = [
     "/perfil",
     "/inicio",
+    "/header",
+    "/productlist",
     "/navbarusuario",
     "/estadisticas",
     "/pedidos",
-    "/razaspequenas",
-    "/razasmedianas",
-    "/razasgrandes",
   ];
   const rutasSinNavbar = ["/", "/registrarse", "/login"];
 
@@ -71,12 +71,22 @@ function App() {
 
           {/* Rutas con NavbarUsuario */}
           <Route path="/perfil" element={<Perfil />} />
-          <Route path="/inicio" element={<Inicio />} />
           <Route path="/estadisticas" element={<Estadisticas />} />
           <Route path="/pedidos" element={<Pedidos />} />
-          <Route path="/razaspequenas" element={<RazasPequenas />} />
-          <Route path="/razasmedianas" element={<RazasMedianas />} />
-          <Route path="/razasgrandes" element={<RazasGrandes />} />
+
+          <Route
+            path="/inicio"
+            element={
+              <Inicio
+                allProducts={allProducts}
+                setAllProducts={setAllProducts}
+                total={total}
+                setTotal={setTotal}
+                countProducts={countProducts}
+                setCountProducts={setCountProducts}
+              />
+            }
+          />
         </Routes>
       </div>
     </AuthProvider>
