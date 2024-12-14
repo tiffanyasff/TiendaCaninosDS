@@ -25,6 +25,44 @@ export const Header = ({
     setCountProducts(0);
   };
 
+  const onBuyCart = () => {
+    alert("Compra realizada con éxito!");
+    setAllProducts([]);
+    setTotal(0);
+    setCountProducts(0);
+  };
+
+  const onAdd = (product) => {
+    const updatedProducts = allProducts.map((item) => {
+      if (item.id === product.id) {
+        return { ...item, quantity: item.quantity + 1 };
+      }
+      return item;
+    });
+  
+    setAllProducts(updatedProducts);
+    setTotal(total + product.price);
+    setCountProducts(countProducts + 1);
+  };
+  
+  const onSubtract = (product) => {
+    if (product.quantity > 1) {
+      const updatedProducts = allProducts.map((item) => {
+        if (item.id === product.id) {
+          return { ...item, quantity: item.quantity - 1 };
+        }
+        return item;
+      });
+  
+      setAllProducts(updatedProducts);
+      setTotal(total - product.price);
+      setCountProducts(countProducts - 1);
+    } else {
+      // Si la cantidad es 1, eliminar el producto
+      onDeleteProduct(product);
+    }
+  };
+  
   return (
     <header>
       <h1>Nuestros caninos</h1>
@@ -69,6 +107,40 @@ export const Header = ({
                         ${product.price}
                       </span>
                     </div>
+
+                    <svg //Suma
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="icon-add"
+                      onClick={() => onAdd(product)}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 6v12m6-6H6"
+                      />
+                    </svg>
+                    
+                    <svg //Resta
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="icon-subtract"
+                      onClick={() => onSubtract(product)}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 12h12"
+                      />
+                    </svg>
+
+
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -95,6 +167,9 @@ export const Header = ({
 
               <button className="btn-clear-all" onClick={onCleanCart}>
                 Vaciar Carrito
+              </button>
+              <button className="btn-buy-all" onClick={onBuyCart}>
+                Comprar
               </button>
             </>
           ) : (
