@@ -37,7 +37,6 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -47,8 +46,9 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://tiendacaninosds.onrender.com",  # URL de tu frontend
-    "http://localhost:3000",  # Para desarrollo local
+    'https://frontend-tienda-caninos.onrender.com',
+    'https://tiendacaninosds.onrender.com',  # URL de tu frontend
+    'http://localhost:3000',  # Para desarrollo local
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
