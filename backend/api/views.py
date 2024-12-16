@@ -9,6 +9,10 @@ from .serializers import UsuarioSerializer
 from django.contrib.auth import authenticate
 # Create your views here.
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.exceptions import ValidationError
+
+
 
 
 def menu(request):
@@ -92,7 +96,6 @@ def login(request):
     
     if user:
         # Si el usuario existe y las credenciales son correctas, generamos el token
-        from rest_framework_simplejwt.tokens import RefreshToken
         
         refresh = RefreshToken.for_user(user)
         return Response({
