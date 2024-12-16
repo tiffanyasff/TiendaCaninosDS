@@ -46,6 +46,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "https://tiendacaninosds.onrender.com",  # URL de tu frontend
+    "http://localhost:3000",  # Para desarrollo local
+]
+
 CORS_ALLOW_ALL_ORIGINS = True
 
 REST_FRAMEWORK = {
