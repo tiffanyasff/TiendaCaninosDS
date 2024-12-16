@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Box, Button, TextField, Typography, Grid, Alert } from "@mui/material";
+import { ArrowBack } from "@mui/icons-material"; // Icono de flecha hacia atrás
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../AuthContext"; // Asegúrate de importar correctamente
-
+import { useAuth } from "../AuthContext";
 const LoginForm = () => {
   const { login } = useAuth(); // Usamos el contexto para acceder al login
   const [formData, setFormData] = useState({
@@ -41,7 +41,7 @@ const LoginForm = () => {
         setSuccess("Login exitoso");
         setError("");
         console.log("Usuario logueado:", response.data);
-        navigate("/inicio   "); // Redirige a la página principal
+        navigate("/inicio"); // Redirige a la página principal
       }
     } catch (err) {
       setError("Credenciales incorrectas");
@@ -52,6 +52,14 @@ const LoginForm = () => {
 
   return (
     <Box sx={{ maxWidth: 500, margin: "auto", mt: 5 }}>
+      <Button
+        startIcon={<ArrowBack />}
+        onClick={() => navigate(-1)} // Regresa a la página anterior
+        sx={{ mb: 2 }} 
+      >
+        Volver
+      </Button>
+
       <Typography variant="h4" gutterBottom>
         Iniciar sesión
       </Typography>
