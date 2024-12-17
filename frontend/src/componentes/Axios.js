@@ -8,7 +8,7 @@ console.log("BASE URL:", baseUrl);
 // Crear la instancia de Axios
 const AxiosInstance = axios.create({
   baseURL: baseUrl,
-  timeout: 5000,
+  timeout: 10000,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
