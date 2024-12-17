@@ -13,7 +13,7 @@ const Editar = () => {
   const [loading, setLoading] = useState(true);
 
   const GetData = () => {
-    AxiosInstance.get(`http://localhost:8000/api/editar-usuario/${MyId}`).then(
+    AxiosInstance.get(`https://tiendacaninosds.onrender.com/api/editar-usuario/${MyId}`).then(
       (res) => {
         console.log("holaaaa");
         console.log(res.data);
@@ -44,7 +44,7 @@ const Editar = () => {
   });
   const submission = (data) => {
     console.log("chaooooo");
-    AxiosInstance.put(`http://localhost:8000/api/editar-usuario/${MyId}/`, {
+    AxiosInstance.put(`https://tiendacaninosds.onrender.com/api/editar-usuario/${MyId}/`, {
       nombre: data.nombre,
       correo: data.correo,
       password: data.password,

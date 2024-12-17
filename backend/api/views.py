@@ -19,6 +19,7 @@ def menu(request):
     return HttpResponse("este es el menu")
 
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def crear_usuario(request):
     data = request.data
     usuario = Usuario.objects.create(

@@ -21,7 +21,7 @@ const Crear = () => {
   const submission = async (data) => {
     try {
       const response = await AxiosInstance.post(
-        "http://localhost:8000/api/crear-usuario/",
+        "https://tiendacaninosds.onrender.com/api/crear-usuario/",
         data
       );
       console.log(response.data);

@@ -11,7 +11,7 @@ const Borrar = () => {
   const [loading, setLoading] = useState(true);
 
   const GetData = () => {
-    AxiosInstance.get(`http://localhost:8000/api/borrar-usuario/${MyId}/`).then(
+    AxiosInstance.get(`https://tiendacaninosds.onrender.com/api/borrar-usuario/${MyId}/`).then(
       (res) => {
         setMydata(res.data);
         console.log(res.data);
@@ -29,7 +29,7 @@ const Borrar = () => {
   const submission = (data) => {
     console.log("chaooooo");
     AxiosInstance.delete(
-      `http://localhost:8000/api/borrar-usuario/${MyId}/`
+      `https://tiendacaninosds.onrender.com/api/borrar-usuario/${MyId}/`
     ).then((res) => {
       navigate(`/menu`);
     });

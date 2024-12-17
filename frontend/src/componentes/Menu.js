@@ -10,7 +10,7 @@ const Menu = () => {
   const [loading, setLoading] = useState(true);
 
   const GetData = () => {
-    AxiosInstance.get(`http://localhost:8000/api/obtener_usuarios`).then(
+    AxiosInstance.get(`https://tiendacaninosds.onrender.com/api/obtener_usuarios`).then(
       (res) => {
         setMydata(res.data);
         console.log(res.data);

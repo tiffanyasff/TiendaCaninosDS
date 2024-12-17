@@ -29,7 +29,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await AxiosInstance.post("/api/login/", {
+      const response = await AxiosInstance.post("https://tiendacaninosds.onrender.com/api/login/", {
         username: formData.username,
         password: formData.password,
       });

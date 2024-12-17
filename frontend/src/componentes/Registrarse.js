@@ -32,13 +32,18 @@ const Registrarse = () => {
   const submission = async (data) => {
     try {
       const response = await AxiosInstance.post(
-        "/api/crear-usuario/",
-        data
+        "https://tiendacaninosds.onrender.com/api/crear-usuario/",
+        data,
+        {
+          headers: {
+            'Content-Type': 'application/json', // Asegura que el tipo de contenido sea JSON
+          },
+        }
       );
       console.log(response.data);
       alert("Usuario creado exitosamente");
       reset(); // Reiniciar el formulario después de enviar
-      navigate("/inicio"); // Redirigir automáticamente
+      navigate("/login"); // Redirigir automáticamente
     } catch (error) {
       console.error("Error al crear el usuario", error);
       alert("Error al crear el usuario");
