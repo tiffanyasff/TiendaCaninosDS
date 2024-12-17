@@ -49,7 +49,7 @@ const LoginForm = () => {
           navigate("/admin");
         }
         else if(userData.permission_type === 2){
-
+          navigate("/adviceinicio")
         }
         else {
           navigate("/inicio"); // Redirige a la página principal
