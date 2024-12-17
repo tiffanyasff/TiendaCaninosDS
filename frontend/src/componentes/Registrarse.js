@@ -8,6 +8,7 @@ import {
   CardContent,
   CardHeader,
 } from "@mui/material";
+import { ArrowBack } from "@mui/icons-material"; // Icono de flecha hacia atrás
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import AxiosInstance from "./Axios";
@@ -57,11 +58,31 @@ const Registrarse = () => {
     >
       <Card sx={{ maxWidth: 500, width: "100%", boxShadow: 3 }}>
         <CardHeader
-          title="Crear Usuario"
+          title={ 
+            <>
+              <Button //Back
+                startIcon={<ArrowBack />}
+                onClick={() => navigate("/")} // Redirige a la página raíz "/"
+                sx={{
+                  position: "absolute",
+                  top: "18px",
+                  left: "12px",
+                  color: "white",
+                  fontWeight: "bold",
+                }}
+              >
+              </Button>
+              <Typography variant="h6" component="span">
+                Crear Usuario
+              </Typography>
+            </>
+          }
           sx={{
+            position: "relative",
             backgroundColor: "#1976d2",
             color: "white",
             textAlign: "center",
+            padding: "16px",
           }}
         />
         <CardContent>

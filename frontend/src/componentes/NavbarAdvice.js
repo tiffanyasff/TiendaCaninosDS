@@ -12,8 +12,9 @@ const NavbarUsuario = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: "#6a1b9a" }}>
+      <AppBar position="static" sx={{ backgroundColor: "#cc6533" }}>
         <Toolbar>
+          {/* Logo que ejecuta la función de cerrar sesión */}
           <Typography
             variant="h6"
             sx={{
@@ -22,39 +23,35 @@ const NavbarUsuario = () => {
               textDecoration: "none",
               cursor: "pointer",
             }}
-            onClick={handleLogout} // Ahora el logo cierra sesión
+            onClick={handleLogout} // Función de cerrar sesión al hacer clic
           >
             Venta Caninos
           </Typography>
 
           <Button
             component={Link}
-            to="/inicio"
+            to="/advice"
             sx={{ color: "#ffffff", textDecoration: "none" }}
           >
             Inicio
           </Button>
+          {/* Botón de Crear */}
           <Button
             component={Link}
-            to="/perfil"
+            to="/advice/crear"
             sx={{ color: "#ffffff", textDecoration: "none" }}
           >
-            Perfil
+            Crear
           </Button>
+          {/* Botón de Estadísticas */}
           <Button
             component={Link}
-            to="/pedidos"
-            sx={{ color: "#ffffff", textDecoration: "none" }}
-          >
-            Pedidos
-          </Button>
-          <Button
-            component={Link}
-            to="/estadisticas"
+            to="/advice/estadisticas"
             sx={{ color: "#ffffff", textDecoration: "none" }}
           >
             Estadísticas
           </Button>
+
           {/* Botón de Cerrar Sesión */}
           <Button
             onClick={handleLogout}
