@@ -4,6 +4,7 @@ import { ArrowBack } from "@mui/icons-material"; // Icono de flecha hacia atrás
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
+
 const LoginForm = () => {
   const { login } = useAuth(); // Usamos el contexto para acceder al login
   const [formData, setFormData] = useState({
@@ -54,8 +55,8 @@ const LoginForm = () => {
     <Box sx={{ maxWidth: 500, margin: "auto", mt: 5 }}>
       <Button
         startIcon={<ArrowBack />}
-        onClick={() => navigate(-1)} // Regresa a la página anterior
-        sx={{ mb: 2 }} 
+        onClick={() => navigate("/")} // Redirige a la página raíz "/"
+        sx={{ mb: 2 }}
       >
         Volver
       </Button>

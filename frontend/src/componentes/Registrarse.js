@@ -58,11 +58,11 @@ const Registrarse = () => {
     >
       <Card sx={{ maxWidth: 500, width: "100%", boxShadow: 3 }}>
         <CardHeader
-          title={
+          title={ 
             <>
               <Button //Back
                 startIcon={<ArrowBack />}
-                onClick={() => navigate(-1)}
+                onClick={() => navigate("/")} // Redirige a la página raíz "/"
                 sx={{
                   position: "absolute",
                   top: "18px",
