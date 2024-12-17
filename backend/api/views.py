@@ -5,11 +5,12 @@ from rest_framework.decorators import api_view, permission_classes
 from .models import Usuario
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import UsuarioSerializer 
+from backend.api.serializers.userserializers import UsuarioSerializer 
 from django.contrib.auth import authenticate
 # Create your views here.
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
+from api.views.globalImport import viewsets, status, action, Response
 
 def menu(request):
     return HttpResponse("este es el menu")
@@ -21,7 +22,6 @@ def crear_usuario(request):
         nombre=data['nombre'],
         correo=data['correo'],
         username = data['username'],
-        # password=data['password'],
         telefono=data.get('telefono', ''),
         direccion=data.get('direccion', ''),
         is_active = True
@@ -115,3 +115,57 @@ def obtener_usuario_logueado(request):
         'telefono': user.telefono,
         'direccion': user.direccion,
     })
+
+
+class UserViewSet(viewsets.GenericViewSet):
+    model = Usuario
+    serializer_class = UsuarioSerializer
+    lookup_field = 'guid'
+
+    # Listar usuarios y uno en especifico
+    @action(methods=['post'], detail=False, url_path='list')
+    def GetAllUsersOrOne(self, request):
+        body = request.data
+        if body is not None and 'guidbackend' in body:
+            guidFilter = body['guidbackend']
+            user = self.model.objects.filter(guidbackend=guidFilter).first()
+            if user is not None:
+                response = self.serializer_class(user, many=False)
+                return Response(response.data, status=status.HTTP_200_OK)
+            return Response({'Error':f'No se encontro un usuario con {guidFilter}'}, status=status.HTTP_204_NO_CONTENT)
+        users = self.model.objects.all()
+        response = self.serializer_class(users, many=True)
+        return Response(response.data, status=status.HTTP_200_OK)
+    
+    # Crear Usuarios
+    @action(methods=['post'], detail=False, url_path='create')
+    def PostCreateUser(self, request):
+        user = UsuarioSerializer(data=request.data)
+        if user.is_valid():
+            if not self.model.objects.filter(username=request.data['username']).exists():
+                user.save()
+                return Response({'Usuario creado exitosamente!!'}, status=status.HTTP_200_OK)
+            return Response({'Error':'El usuario ya se encuentra creado.'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'Error':user.errors}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Eliminar Usuario
+    @action(methods=['delete'], detail=True, url_path='delete')
+    def DeleteUser(self, request, guid = None):
+        user = self.model.objects.filter(guidbackend=guid).first()
+        if user is not None:
+            user.delete()
+            return Response({'Usuario Eliminado!!'}, status=status.HTTP_200_OK)
+        return Response({'Error':'Usuario no se encuentra registrado.'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Actualizar Usuario
+    @action(methods=['put'], detail=True, url_path='update')
+    def UpdateUser(self, request, guid = None):
+        user = self.model.objects.filter(guidbackend=guid).first()
+        if user is not None:
+            userUpdate = UsuarioSerializer(user, data=request.data)
+            if userUpdate.is_valid():
+                userUpdate.save()
+                return Response({'Usuario Actualizado!!'}, status=status.HTTP_200_OK)
+            return Response({'Error':userUpdate.errors}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'Error':'Usuario no se enuentra registrado.'}, status=status.HTTP_400_BAD_REQUEST)
+    
