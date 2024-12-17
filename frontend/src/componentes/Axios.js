@@ -15,14 +15,5 @@ const AxiosInstance = axios.create({
   },
 });
 
-// Configurar el header Authorization si hay un token guardado en localStorage
-const token = localStorage.getItem("token");
-if (token) {
-  AxiosInstance.defaults.headers["Authorization"] = `Bearer ${token}`;
-  console.log("Token configurado en Axios:", token);
-} else {
-  console.log("No hay token en localStorage");
-}
-
 // Exportar la instancia de Axios
 export default AxiosInstance;

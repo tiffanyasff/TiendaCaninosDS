@@ -3,12 +3,11 @@ import { Box, Button, TextField, Typography, Grid, Alert } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material"; // Icono de flecha hacia atrás
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
 import AxiosInstance from "./Axios";
 import { useAuth } from "../AuthContext"; // Asegúrate de importar correctamente
-=======
-import { useAuth } from "../AuthContext";
->>>>>>> Juan_dev
+
+
+
 
 const LoginForm = () => {
   const { login } = useAuth(); // Usamos el contexto para acceder al login

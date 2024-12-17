@@ -1,13 +1,20 @@
 import React from "react";
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import AxiosInstance from "./Axios";
+
 
 const NavbarUsuario = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   const handleLogout = () => {
+    console.log("token antes de cerrar sesion",localStorage.setItem("token", token));
     localStorage.removeItem("token"); // Elimina el token del localStorage
+    console.log("token despues de cerrar sesion",localStorage.setItem("token", token));
     navigate("/login"); // Redirige al usuario a la página de inicio de sesión
+    console.log("removee",localStorage.removeItem("token"));
+
   };
 
   return (
