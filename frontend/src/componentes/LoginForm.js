@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, TextField, Typography, Grid, Alert } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import AxiosInstance from "./Axios";
 import { useAuth } from "../AuthContext"; // Asegúrate de importar correctamente
 
 const LoginForm = () => {
@@ -24,7 +25,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:8000/api/login/", {
+      const response = await AxiosInstance.post("/api/login/", {
         username: formData.username,
         password: formData.password,
       });
@@ -34,8 +35,12 @@ const LoginForm = () => {
         const userData = response.data.user; // Suponiendo que también recibes la info del usuario
 
         localStorage.setItem("token", token); // Guarda el token en localStorage
-        axios.defaults.headers["Authorization"] = `Bearer ${token}`; // Configura el token por defecto
 
+        AxiosInstance.defaults.headers["Authorization"] = `Bearer ${token}`; // Configura el token por defecto
+        console.log("Token antes de hacer la solicitud:", AxiosInstance.defaults.headers["Authorization"]);
+
+        console.log('Token de autorización:', AxiosInstance.defaults.headers["Authorization"]);
+        console.log('URL de la solicitud:', AxiosInstance.defaults.baseURL + "/api/login/");
         login(token, userData); // Llama a la función login del contexto
 
         setSuccess("Login exitoso");
