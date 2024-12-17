@@ -52,12 +52,13 @@ export const Header = ({
     const token = localStorage.getItem("token");
     try {
       const response = await AxiosInstance.get(
-        "http://localhost:8000/api/obtener_usuario_logueado",
+        "http://localhost:8000/api/users/list/",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      const userId = response.data.id;
+      const userId = response.data.guidbackend;
+      console.log("usuario: ",userId)
 
       // Guarda el userId en localStorage
       localStorage.setItem("userId", userId);

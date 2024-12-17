@@ -5,12 +5,13 @@ import "../estilos/Perfil.css";
 const Perfil = () => {
   const [editable, setEditable] = useState(false);
   const [user, setUser] = useState({
-    nombre: "",
-    correo: "",
-    telefono: "",
-    direccion: "",
+    first_name: "",
+    email: "",
+    cellphone: "",
+    address: "",
   });
   const [loading, setLoading] = useState(true);
+  const guidbackend = localStorage.getItem("guidbackend");
 
   const fetchUserData = () => {
     const token = localStorage.getItem("token");
@@ -20,7 +21,7 @@ const Perfil = () => {
       return;
     }
 
-    AxiosInstance.get("http://localhost:8000/api/obtener_usuario_logueado", {
+    AxiosInstance.get("http://localhost:8000/api/users/list/", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => {
@@ -35,7 +36,7 @@ const Perfil = () => {
 
   const saveUserData = () => {
     AxiosInstance.put(
-      `http://localhost:8000/api/editar-usuario/${user.id}/`,
+      `http://localhost:8000/api/users/${guidbackend}/update/`,
       user
     )
       .then(() => {
@@ -52,7 +53,7 @@ const Perfil = () => {
   const deleteUser = () => {
     if (window.confirm("¿Estás seguro de eliminar tu cuenta?")) {
       AxiosInstance.delete(
-        `http://localhost:8000/api/borrar-usuario/${user.id}/`
+        `http://localhost:8000/api/users/${guidbackend}/delete/`
       ) // Comillas invertidas
         .then(() => {
           alert("Cuenta eliminada.");
@@ -92,12 +93,12 @@ const Perfil = () => {
                 {editable ? (
                   <input
                     type="text"
-                    name="nombre"
-                    value={user.nombre || ""} // Si no existe el valor de 'nombre', se usa un string vacío
+                    name="first_name"
+                    value={user.first_name || ""} // Si no existe el valor de 'nombre', se usa un string vacío
                     onChange={handleChange}
                   />
                 ) : (
-                  <span>{user.nombre}</span>
+                  <span>{user.first_name}</span>
                 )}
               </p>
               <p>
@@ -105,12 +106,12 @@ const Perfil = () => {
                 {editable ? (
                   <input
                     type="email"
-                    name="correo"
-                    value={user.correo}
+                    name="email"
+                    value={user.email}
                     onChange={handleChange}
                   />
                 ) : (
-                  <span>{user.correo}</span>
+                  <span>{user.email}</span>
                 )}
               </p>
               <p>
@@ -118,12 +119,12 @@ const Perfil = () => {
                 {editable ? (
                   <input
                     type="tel"
-                    name="telefono"
-                    value={user.telefono}
+                    name="cellphone"
+                    value={user.cellphone}
                     onChange={handleChange}
                   />
                 ) : (
-                  <span>{user.telefono}</span>
+                  <span>{user.cellphone}</span>
                 )}
               </p>
               <p>
@@ -131,12 +132,12 @@ const Perfil = () => {
                 {editable ? (
                   <input
                     type="text"
-                    name="direccion"
-                    value={user.direccion}
+                    name="address"
+                    value={user.address}
                     onChange={handleChange}
                   />
                 ) : (
-                  <span>{user.direccion}</span>
+                  <span>{user.address}</span>
                 )}
               </p>
             </div>

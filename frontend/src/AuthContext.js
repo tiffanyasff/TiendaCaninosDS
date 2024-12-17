@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
 
     if (token) {
       axios
-        .get("http://localhost:8000/api/obtener_usuario_logueado", {
+        .get("http://localhost:8000/api/users/list/", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {

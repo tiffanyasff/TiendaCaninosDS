@@ -32,10 +32,16 @@ export const ProductList = ({
   const getUser = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await AxiosInstance.get("http://localhost:8000/api/obtener_usuario_logueado", {
+      const response = await AxiosInstance.get("http://localhost:8000/api/users/list/", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      return response.data;
+      if(response.status === 200){
+        return response.data;
+      }
+      else{
+        console.error("Error al obtener los datos del usuario, status: ", response.status);
+        return [];
+      }
     } catch (error) {
       console.error("Error al obtener los datos del usuario:", error);
     }
@@ -45,7 +51,7 @@ export const ProductList = ({
   const saveToLocalStorage = async (products, count) => {
     const user = await getUser();
     if (user) {
-      const userId = user.id;
+      const userId = user.guidbackend;
       localStorage.setItem(`cartProducts_${userId}`, JSON.stringify(products));
       localStorage.setItem(`cartCount_${userId}`, count);
     } else {

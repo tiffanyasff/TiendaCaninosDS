@@ -20,77 +20,61 @@ ALLOWED_HOSTS = ['tiendacaninosds.onrender.com', 'localhost', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-
+    'rest_framework_simplejwt',
+    #'rest_framework.authtoken',
     'api',
     'rest_framework_simplejwt.token_blacklist',
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    'django.middleware.security.SecurityMiddleware', # MEGAMENTE Requerido!!
+    #'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware', # Para esta app no es necesario, pero es mejor manterlo por seguridad, implementar CSRF_TRUSTED_ORIGINS 
+    #'django.contrib.auth.middleware.AuthenticationMiddleware', #Definitivamente este no va, pero toca hacer uno bien solido.
+    'django.middleware.clickjacking.XFrameOptionsMiddleware', # Backend no usa iframes, pero es buena practica, configurarlo como SAMEORIGIN
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',  # Usar JWT como método de autenticación
-    ],
+    #'DEFAULT_AUTHENTICATION_CLASSES': [
+    #    'rest_framework_simplejwt.authentication.JWTAuthentication',  # Usar JWT como método de autenticación
+    #],
     # 'DEFAULT_PERMISSION_CLASSES': [
     #     'rest_framework.permissions.IsAuthenticated',  # Requiere autenticación para las vistas
     # ],
 }
 
-ROOT_URLCONF = 'TiendaCaninosds.urls'
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
+ROOT_URLCONF = 'TiendaCaninosds.urls'
 
 WSGI_APPLICATION = 'TiendaCaninosds.wsgi.application'
 
 #  if is need change the autentications shapes, change the authentication backends 
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',  # Backend predeterminado
-]
+
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'sebas',
+        'HOST': 'localhost',
+        'PORT': '5432',
+        'OPTIONS':{
+            'options': '-c search_path=mascotadb,public'
+        }
+    }}
 
 AUTH_USER_MODEL = 'api.Usuario'
 

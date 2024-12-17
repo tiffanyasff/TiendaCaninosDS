@@ -5,13 +5,13 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const Borrar = () => {
   const MyParam = useParams();
-  const MyId = MyParam.id;
+  const guidbackend = MyParam.id;
 
   const [myData, setMydata] = useState();
   const [loading, setLoading] = useState(true);
 
   const GetData = () => {
-    AxiosInstance.get(`http://localhost:8000/api/borrar-usuario/${MyId}/`).then(
+    AxiosInstance.get(`http://localhost:8000/api/users/${guidbackend}/get/`).then(
       (res) => {
         setMydata(res.data);
         console.log(res.data);
@@ -29,7 +29,7 @@ const Borrar = () => {
   const submission = (data) => {
     console.log("chaooooo");
     AxiosInstance.delete(
-      `http://localhost:8000/api/borrar-usuario/${MyId}/`
+      `http://localhost:8000/api/users/${guidbackend}/delete/`
     ).then((res) => {
       navigate(`/menu`);
     });

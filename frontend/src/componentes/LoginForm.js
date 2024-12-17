@@ -25,7 +25,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:8000/api/login/", {
+      const response = await axios.post("http://localhost:8000/api/login", {
         username: formData.username,
         password: formData.password,
       });
@@ -35,6 +35,9 @@ const LoginForm = () => {
         const userData = response.data.user; // Suponiendo que también recibes la info del usuario
 
         localStorage.setItem("token", token); // Guarda el token en localStorage
+        if(userData){
+          localStorage.setItem("guidbackend", userData.guidbackend); // Guarda el token en localStorage
+        }
         axios.defaults.headers["Authorization"] = `Bearer ${token}`; // Configura el token por defecto
 
         login(token, userData); // Llama a la función login del contexto

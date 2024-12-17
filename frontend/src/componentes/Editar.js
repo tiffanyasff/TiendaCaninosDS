@@ -8,20 +8,20 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const Editar = () => {
   const MyParam = useParams();
-  const MyId = MyParam.id;
+  const guidbackend = MyParam.id;
 
   const [loading, setLoading] = useState(true);
 
   const GetData = () => {
-    AxiosInstance.get(`http://localhost:8000/api/editar-usuario/${MyId}`).then(
+    AxiosInstance.get(`http://localhost:8000/api/users/${guidbackend}/get/`).then(
       (res) => {
         console.log("holaaaa");
         console.log(res.data);
-        setValue("nombre", res.data.nombre);
-        setValue("correo", res.data.correo);
+        setValue("nombre", res.data.first_name);
+        setValue("correo", res.data.email);
         setValue("password", res.data.password);
-        setValue("telefono", res.data.telefono);
-        setValue("direccion", res.data.direccion);
+        setValue("telefono", res.data.cellphone);
+        setValue("direccion", res.data.address);
         setValue("username", res.data.username);
         setLoading(false);
       }
@@ -44,12 +44,12 @@ const Editar = () => {
   });
   const submission = (data) => {
     console.log("chaooooo");
-    AxiosInstance.put(`http://localhost:8000/api/editar-usuario/${MyId}/`, {
-      nombre: data.nombre,
-      correo: data.correo,
+    AxiosInstance.put(`http://localhost:8000/api/users/${guidbackend}/update/`, {
+      first_name: data.nombre,
+      email: data.correo,
       password: data.password,
-      telefono: data.telefono,
-      direccion: data.direccion,
+      cellphone: data.telefono,
+      address: data.direccion,
       username: data.username,
     }).then((res) => {
       navigate(`/menu`);

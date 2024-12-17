@@ -7,11 +7,12 @@ import { useForm } from "react-hook-form";
 
 const Crear = () => {
   const defaultValues = {
-    nombre: "",
-    correo: "",
+    username: "",
+    first_name: "",
+    email: "",
     password: "",
-    telefono: "",
-    direccion: "",
+    cellphone: "",
+    address: "",
   };
 
   const { handleSubmit, reset, setValue, control } = useForm({
@@ -21,12 +22,18 @@ const Crear = () => {
   const submission = async (data) => {
     try {
       const response = await AxiosInstance.post(
-        "http://localhost:8000/api/crear-usuario/",
+        "http://localhost:8000/api/users/create/",
         data
       );
-      console.log(response.data);
-      alert("Usuario creado exitosamente");
-      reset(); // Reiniciar el formulario después de enviar
+      if(response.status === 200){
+        console.log(response.data);
+        alert("Usuario creado exitosamente");
+        reset(); // Reiniciar el formulario después de enviar
+      }
+      else{
+        console.error("Error al crear el usuario", response.data);
+        alert("Error al crear el usuario");
+      }
     } catch (error) {
       console.error("Error al crear el usuario", error);
       alert("Error al crear el usuario");
@@ -68,7 +75,7 @@ const Crear = () => {
         >
           <MyTextField
             label="Nombre"
-            name={"nombre"}
+            name={"first_name"}
             control={control}
             placeholder="Ingrese su nombre"
             width={"30%"}
@@ -76,7 +83,7 @@ const Crear = () => {
 
           <MyTextField
             label="Correo"
-            name={"correo"}
+            name={"email"}
             control={control}
             placeholder="Ingrese su Correo"
             width={"30%"}
@@ -98,7 +105,7 @@ const Crear = () => {
         >
           <MyTextField
             label="Telefono"
-            name={"telefono"}
+            name={"cellphone"}
             control={control}
             placeholder="Ingrese su telefono"
             width={"30%"}
@@ -114,7 +121,7 @@ const Crear = () => {
 
           <MyTextField
             label="Direccion"
-            name={"direccion"}
+            name={"address"}
             control={control}
             placeholder="Ingrese su direccion"
             width={"30%"}

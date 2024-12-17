@@ -16,11 +16,11 @@ import AxiosInstance from "./Axios";
 const Registrarse = () => {
   const defaultValues = {
     username: "",
-    nombre: "",
-    correo: "",
+    first_name: "",
+    email: "",
     password: "",
-    telefono: "",
-    direccion: "",
+    cellphone: "",
+    address: "",
   };
 
   const { handleSubmit, reset, control } = useForm({
@@ -32,13 +32,19 @@ const Registrarse = () => {
   const submission = async (data) => {
     try {
       const response = await AxiosInstance.post(
-        "http://localhost:8000/api/crear-usuario/",
+        "http://localhost:8000/api/users/create/",
         data
       );
-      console.log(response.data);
-      alert("Usuario creado exitosamente");
-      reset(); // Reiniciar el formulario después de enviar
-      navigate("/inicio"); // Redirigir automáticamente
+      if(response.status === 200){
+        console.log(response.data);
+        alert("Usuario creado exitosamente");
+        reset(); // Reiniciar el formulario después de enviar
+        navigate("/inicio"); // Redirigir automáticamente
+      }
+      else{
+        console.error("Error al crear el usuario", response.data);
+        alert("Error al crear el usuario");
+      }
     } catch (error) {
       console.error("Error al crear el usuario", error);
       alert("Error al crear el usuario");
@@ -103,7 +109,7 @@ const Registrarse = () => {
               />
 
               <Controller
-                name="nombre"
+                name="first_name"
                 control={control}
                 render={({ field }) => (
                   <TextField
@@ -117,7 +123,7 @@ const Registrarse = () => {
               />
 
               <Controller
-                name="correo"
+                name="email"
                 control={control}
                 render={({ field }) => (
                   <TextField
@@ -147,7 +153,7 @@ const Registrarse = () => {
               />
 
               <Controller
-                name="telefono"
+                name="cellphone"
                 control={control}
                 render={({ field }) => (
                   <TextField
@@ -162,7 +168,7 @@ const Registrarse = () => {
               />
 
               <Controller
-                name="direccion"
+                name="address"
                 control={control}
                 render={({ field }) => (
                   <TextField

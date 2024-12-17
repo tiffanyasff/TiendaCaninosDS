@@ -28,7 +28,7 @@ export default function Navbar(props) {
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
         <Toolbar>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" noWrap component="div" fontWeight="bold">
             Tienda caninos
           </Typography>
         </Toolbar>
@@ -45,7 +45,7 @@ export default function Navbar(props) {
         }}
       >
         <Toolbar />
-        <Box sx={{ overflow: "auto" }}>
+        <Box sx={{ overflow: "auto", marginTop: 8 }}>
           <List>
             <ListItem disablePadding>
               <ListItemButton
@@ -92,6 +92,7 @@ export default function Navbar(props) {
       <Box
         component="main"
         sx={{
+          
           flexGrow: 1,
           p: 3, // Reduce padding
           // marginLeft: `${drawerWidth}px`,

@@ -10,7 +10,7 @@ const Menu = () => {
   const [loading, setLoading] = useState(true);
 
   const GetData = () => {
-    AxiosInstance.get(`http://localhost:8000/api/obtener_usuarios`).then(
+    AxiosInstance.post(`http://localhost:8000/api/users/list/`).then(
       (res) => {
         setMydata(res.data);
         console.log(res.data);
@@ -26,22 +26,22 @@ const Menu = () => {
   const columns = useMemo(
     () => [
       {
-        accessorKey: "nombre", //access nested data with dot notation
+        accessorKey: "first_name", //access nested data with dot notation
         header: "Nombre",
         size: 150,
       },
       {
-        accessorKey: "correo",
+        accessorKey: "email",
         header: "Correo",
         size: 150,
       },
       {
-        accessorKey: "telefono", //normal accessorKey
+        accessorKey: "cellphone", //normal accessorKey
         header: "Telefono",
         size: 200,
       },
       {
-        accessorKey: "direccion", //normal accessorKey
+        accessorKey: "address", //normal accessorKey
         header: "Direccion",
         size: 200,
       },
@@ -63,7 +63,7 @@ const Menu = () => {
               <IconButton
                 color="secondary"
                 component={Link}
-                to={`editar/${row.original.id}`}
+                to={`editar/${row.original.guidbackend}`}
               >
                 <EditIcon />
               </IconButton>
@@ -71,7 +71,7 @@ const Menu = () => {
               <IconButton
                 color="error"
                 component={Link}
-                to={`borrar/${row.original.id}`}
+                to={`borrar/${row.original.guidbackend}`}
               >
                 <DeleteIcon />
               </IconButton>

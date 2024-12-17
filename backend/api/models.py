@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, AbstractUser
 import uuid
 
 class UserManager(BaseUserManager):
@@ -10,7 +10,7 @@ class UserManager(BaseUserManager):
         user = self.model(
             username = username,
             email = self.normalize_email(email),
-            last_name = name,
+            first_name = name,
             cellphone = cellphone,
             address = address
         )
@@ -39,26 +39,37 @@ class UserManager(BaseUserManager):
         return user
 
 
-class Usuario(AbstractUser):
+class Usuario(AbstractBaseUser):
     # Campos adicionales
     guidbackend = models.CharField(primary_key=True, unique=True, default=uuid.uuid4, max_length=36)
+    username = models.CharField(max_length=150,unique=True)
+    email = models.EmailField(blank=False, null=False, unique=True)
+    first_name = models.CharField(max_length=150, blank=True)
     cellphone = models.CharField(max_length=15, blank=True, null=True)
     address = models.TextField(blank=True, null=True)
     objects = UserManager()
+    last_login = models.DateField(blank=True, null=True)
 
-    # Campo modificado, debe ser requerido y no puede ser null o vacio
-    email = models.EmailField(blank=False, null=False, unique=True)
-    
-    # Campos para autenticación
+    token = models.TextField(null=True)
+    refrest = models.TextField(null=True)
+
+    EMAIL_FIELD = "email"
+    USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["email"]
-    USERNAME_FIELD = 'username'  # El campo utilizado para la autenticación
+
+    def has_perm(self, perm, obj = None):
+        return True
+    
+    def has_module_perms(self, app_label):
+        return True
 
     def __str__(self) -> str:
         return f"{self.username} - {self.first_name}"
     
-    def getNombreCompleto(self):
-        return f"{self.first_name} {self.last_name}"
+    @property
+    def is_staff(self):
+        return True
     
     class Meta:
-        ordering = ['username','is_active']
-        db_table = 'users'
+        ordering = ['username']
+        db_table = 'usuario'
