@@ -20,7 +20,7 @@ const Perfil = () => {
       return;
     }
 
-    AxiosInstance.get("http://localhost:8000/api/obtener_usuario_logueado", {
+    AxiosInstance.get("https://tiendacaninosds.onrender.com/api/obtener_usuario_logueado", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => {
@@ -35,7 +35,7 @@ const Perfil = () => {
 
   const saveUserData = () => {
     AxiosInstance.put(
-      `http://localhost:8000/api/editar-usuario/${user.id}/`,
+      `https://tiendacaninosds.onrender.com/api/editar-usuario/${user.id}/`,
       user
     )
       .then(() => {
@@ -52,7 +52,7 @@ const Perfil = () => {
   const deleteUser = () => {
     if (window.confirm("¿Estás seguro de eliminar tu cuenta?")) {
       AxiosInstance.delete(
-        `http://localhost:8000/api/borrar-usuario/${user.id}/`
+        `https://tiendacaninosds.onrender.com/api/borrar-usuario/${user.id}/`
       ) // Comillas invertidas
         .then(() => {
           alert("Cuenta eliminada.");
