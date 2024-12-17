@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 import MyTextField from "./formularios/MyTextField";
 import MyPasswordField from "./formularios/MyPasswordField";
+import MyListItemField from "./formularios/MyListItemField";
 import AxiosInstance from "./Axios";
 import { useForm } from "react-hook-form";
 
@@ -13,6 +14,7 @@ const Crear = () => {
     password: "",
     cellphone: "",
     address: "",
+    permission_type: 3
   };
 
   const { handleSubmit, reset, setValue, control } = useForm({
@@ -125,6 +127,18 @@ const Crear = () => {
             control={control}
             placeholder="Ingrese su direccion"
             width={"30%"}
+          />
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+          }}
+        >
+          <MyListItemField
+            label="Tipo de Administración"
+            name={"permission_type"}
+            control={control}
           />
         </Box>
 

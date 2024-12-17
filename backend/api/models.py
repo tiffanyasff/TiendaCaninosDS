@@ -49,6 +49,7 @@ class Usuario(AbstractBaseUser):
     address = models.TextField(blank=True, null=True)
     objects = UserManager()
     last_login = models.DateField(blank=True, null=True)
+    permission_type = models.IntegerField(default=3)
 
     token = models.TextField(null=True)
     refrest = models.TextField(null=True)

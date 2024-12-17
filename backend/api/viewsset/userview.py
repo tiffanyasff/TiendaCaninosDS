@@ -11,6 +11,7 @@ class UserViewSet(viewsets.GenericViewSet):
     # Crear Usuarios
     @action(methods=['post'], detail=False, url_path='create')
     def PostCreateUser(self, request):
+        print(request.data)
         user = UsuarioSerializer(data=request.data)
         if user.is_valid():
             if not self.model.objects.filter(email=request.data['email']).exists():

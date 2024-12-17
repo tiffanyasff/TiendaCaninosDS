@@ -45,7 +45,15 @@ const LoginForm = () => {
         setSuccess("Login exitoso");
         setError("");
         console.log("Usuario logueado:", response.data);
-        navigate("/inicio"); // Redirige a la página principal
+        if(userData.permission_type === 1){
+          navigate("/admin");
+        }
+        else if(userData.permission_type === 2){
+
+        }
+        else {
+          navigate("/inicio"); // Redirige a la página principal
+        }
       }
     } catch (err) {
       setError("Credenciales incorrectas");
