@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./componentes/Navbar";
+import NavbarAdvice from "./componentes/NavbarAdvice";
 import Portada from "./componentes/Portada";
 import Menu from "./componentes/Menu";
 import Crear from "./componentes/Crear";
@@ -14,6 +15,9 @@ import Inicio from "./componentes/Inicio";
 import LoginForm from "./componentes/LoginForm";
 import Estadisticas from "./componentes/Estadisticas";
 import Pedidos from "./componentes/Pedidos";
+import AdviceInicio from "./componentes/AdviceInicio"; 
+import AdviceCrear from "./componentes/AdviceCrear";
+import AdviceEstadisticas from "./componentes/AdviceEstadisticas";
 import { AuthProvider } from "./AuthContext";
 import { useState } from "react";
 
@@ -24,7 +28,7 @@ function App() {
   const [total, setTotal] = useState(0);
   const [countProducts, setCountProducts] = useState(0);
 
-  // Define las rutas que requieren NavbarUsuario
+  // Define las rutas para NavbarUsuario, sin Navbar y NavbarAdvice
   const rutasUsuario = [
     "/perfil",
     "/inicio",
@@ -35,17 +39,23 @@ function App() {
     "/pedidos",
   ];
   const rutasSinNavbar = ["/", "/registrarse", "/login"];
+  const rutasAdvice = ["/advice", "/advice/crear", "/advice/estadisticas"];
 
   // Determina qué Navbar mostrar según la ruta actual
   const isUsuarioNavbar = rutasUsuario.includes(location.pathname);
   const isSinNavbar = rutasSinNavbar.includes(location.pathname);
+  const isAdviceNavbar = rutasAdvice.some((ruta) =>
+    location.pathname.startsWith(ruta)
+  );
 
   return (
     <AuthProvider>
       <div className="App">
         {/* Renderiza el Navbar adecuado */}
         {!isSinNavbar &&
-          (isUsuarioNavbar ? (
+          (isAdviceNavbar ? (
+            <NavbarAdvice />
+          ) : isUsuarioNavbar ? (
             <NavbarUsuario />
           ) : (
             <Navbar
@@ -87,6 +97,11 @@ function App() {
               />
             }
           />
+
+          {/* Rutas con NavbarAdvice */}
+          <Route path="/advice" element={<AdviceInicio />} />
+          <Route path="/advice/crear" element={<AdviceCrear />} />
+          <Route path="/advice/estadisticas" element={<AdviceEstadisticas />} />
         </Routes>
       </div>
     </AuthProvider>
